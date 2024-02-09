@@ -1,12 +1,12 @@
 import axios from "axios";
 import { fetchEvents } from "./functions";
 
-export async function login(password, setEvents, setHasError) {
+export async function login(password, setEvents, setError) {
   try {
     await axios.post("/api/login", { password: password });
 
-    fetchEvents(setEvents, setHasError);
+    fetchEvents(setEvents, setError);
   } catch (err) {
-    setHasError(true);
+    setError(err.response.data);
   }
 }

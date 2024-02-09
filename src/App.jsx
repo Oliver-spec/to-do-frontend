@@ -14,18 +14,12 @@ function App() {
     name: "",
     date: "",
   });
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    fetchEvents(setEvents, setHasError);
+    fetchEvents(setEvents, setError);
   }, []);
-
-  function showError() {
-    setTimeout(() => setHasError(false), 3000);
-
-    return <div>Something Went Wrong!</div>;
-  }
 
   return (
     <>
@@ -38,7 +32,7 @@ function App() {
       <button
         type="button"
         onClick={() => {
-          login(password, setEvents, setHasError);
+          login(password, setEvents, setError);
           setPassword("");
         }}
       >
@@ -51,13 +45,13 @@ function App() {
           <div>{event.status}</div>
           <button
             type="button"
-            onClick={() => deleteEvent(event.id, setEvents, setHasError)}
+            onClick={() => deleteEvent(event.id, setEvents, setError)}
           >
             DELETE
           </button>
           <button
             type="button"
-            onClick={() => flipStatus(event.id, setEvents, setHasError)}
+            onClick={() => flipStatus(event.id, setEvents, setError)}
           >
             DONE
           </button>
@@ -83,7 +77,7 @@ function App() {
       <button
         type="button"
         onClick={() => {
-          postEvent(input, setEvents, setHasError);
+          postEvent(input, setEvents, setError);
           setInput({
             name: "",
             date: "",
@@ -92,7 +86,14 @@ function App() {
       >
         ADD
       </button>
-      {hasError ? showError() : null}
+      <div>
+        {error}
+        {error ? (
+          <button type="button" onClick={() => setError("")}>
+            CLOSE
+          </button>
+        ) : null}
+      </div>
     </>
   );
 }

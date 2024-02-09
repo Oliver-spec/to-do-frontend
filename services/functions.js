@@ -2,7 +2,7 @@ import axios from "axios";
 
 const url = "/api/events";
 
-export async function fetchEvents(setEvents, setHasError) {
+export async function fetchEvents(setEvents, setError) {
   try {
     const res = await axios.get(url);
 
@@ -17,11 +17,11 @@ export async function fetchEvents(setEvents, setHasError) {
 
     setEvents(events);
   } catch (err) {
-    setHasError(true);
+    setError(err.response.data);
   }
 }
 
-export async function postEvent(event, setEvents, setHasError) {
+export async function postEvent(event, setEvents, setError) {
   try {
     const formattedEvent = {
       eventName: event.name,
@@ -31,28 +31,28 @@ export async function postEvent(event, setEvents, setHasError) {
 
     await axios.post(url, formattedEvent);
 
-    fetchEvents(setEvents, setHasError);
+    fetchEvents(setEvents, setError);
   } catch (err) {
-    setHasError(true);
+    setError(err.response.data);
   }
 }
 
-export async function deleteEvent(id, setEvents, setHasError) {
+export async function deleteEvent(id, setEvents, setError) {
   try {
     await axios.delete(`${url}/${id}`);
 
-    fetchEvents(setEvents, setHasError);
+    fetchEvents(setEvents, setError);
   } catch (err) {
-    setHasError(true);
+    setError(err.response.data);
   }
 }
 
-export async function flipStatus(id, setEvents, setHasError) {
+export async function flipStatus(id, setEvents, setError) {
   try {
     await axios.patch(`${url}/${id}`);
 
-    fetchEvents(setEvents, setHasError);
+    fetchEvents(setEvents, setError);
   } catch (err) {
-    setHasError(true);
+    setError(err.response.data);
   }
 }
