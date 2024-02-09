@@ -6,7 +6,7 @@ import {
   postEvent,
 } from "../services/functions";
 import "./App.css";
-import { login } from "../services/login";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -15,7 +15,6 @@ function App() {
     date: "",
   });
   const [error, setError] = useState("");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     fetchEvents(setEvents, setError);
@@ -23,21 +22,6 @@ function App() {
 
   return (
     <>
-      <input
-        type="password"
-        placeholder="PASSWORD"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        type="button"
-        onClick={() => {
-          login(password, setEvents, setError);
-          setPassword("");
-        }}
-      >
-        LOGIN
-      </button>
       {events.map((event) => (
         <div key={event.id}>
           <div>{event.name}</div>
@@ -94,6 +78,9 @@ function App() {
           </button>
         ) : null}
       </div>
+      {error === "Invalid Token - Please Login" ? (
+        <Navigate to="/login" />
+      ) : null}
     </>
   );
 }
