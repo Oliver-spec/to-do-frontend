@@ -5,7 +5,6 @@ import {
   flipStatus,
   postEvent,
 } from "../services/functions";
-import "./App.css";
 import { Navigate } from "react-router-dom";
 
 function App() {

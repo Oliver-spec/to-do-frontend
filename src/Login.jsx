@@ -8,8 +8,9 @@ export default function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <div>
+    <div className="h-screen flex items-center justify-center">
       <form
+        className="flex flex-col gap-8 w-1/3 items-center justify-center"
         onSubmit={(e) => {
           e.preventDefault();
           login(password, setError, setLoggedIn);
@@ -17,22 +18,28 @@ export default function Login() {
         }}
       >
         <input
+          className="border-2 border-black rounded-2xl p-3 outline-none w-full text-xl"
           autoFocus
           type="password"
           placeholder="PASSWORD"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">LOGIN</button>
+        <button
+          className="border-2 border-black rounded-2xl p-2 w-1/2 hover:bg-slate-200"
+          type="submit"
+        >
+          LOGIN
+        </button>
+        {error && (
+          <div className="flex gap-16 border-4 border-red-600 rounded-xl p-3 bg-rose-200 text-xl">
+            <div>{error}</div>
+            <button type="button" onClick={() => setError("")}>
+              X
+            </button>
+          </div>
+        )}
       </form>
-      <div>
-        {error}
-        {error ? (
-          <button type="button" onClick={() => setError("")}>
-            CLOSE
-          </button>
-        ) : null}
-      </div>
       {loggedIn ? <Navigate to={"/"} /> : null}
     </div>
   );
