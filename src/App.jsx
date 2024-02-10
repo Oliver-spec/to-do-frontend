@@ -15,10 +15,12 @@ function App() {
     date: "",
   });
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
-    fetchEvents(setEvents, setError);
-  }, []);
+    fetchEvents(setEvents, setError, page, setMaxPage);
+  }, [page]);
 
   return (
     <main className="flex flex-col">
@@ -46,7 +48,7 @@ function App() {
           className="border-2 border-black rounded-2xl p-2 w-1/12 hover:bg-white"
           type="button"
           onClick={() => {
-            postEvent(input, setEvents, setError);
+            postEvent(input, setEvents, setError, page, setMaxPage);
             setInput({
               name: "",
               date: "",
@@ -89,19 +91,47 @@ function App() {
             <button
               className="border-2 border-black rounded-xl p-2 hover:bg-white"
               type="button"
-              onClick={() => flipStatus(event.id, setEvents, setError)}
+              onClick={() =>
+                flipStatus(event.id, setEvents, setError, page, setMaxPage)
+              }
             >
               DONE
             </button>
             <button
               className="border-2 border-black rounded-xl p-2 hover:bg-white"
               type="button"
-              onClick={() => deleteEvent(event.id, setEvents, setError)}
+              onClick={() =>
+                deleteEvent(event.id, setEvents, setError, page, setMaxPage)
+              }
             >
               DELETE
             </button>
           </div>
         ))}
+
+        <div className="flex flex-row gap-10">
+          <button
+            type="button"
+            onClick={() => {
+              if (page > 1) {
+                setPage(page - 1);
+              }
+            }}
+          >
+            BACK
+          </button>
+          <div>{page}</div>
+          <button
+            type="button"
+            onClick={() => {
+              if (page < maxPage) {
+                setPage(page + 1);
+              }
+            }}
+          >
+            FOWARD
+          </button>
+        </div>
       </div>
 
       {error === "Invalid Token - Please Login" ? (
