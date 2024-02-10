@@ -6,7 +6,14 @@ import {
   postEvent,
 } from "../services/functions";
 import { Navigate } from "react-router-dom";
-import { IoIosCheckmarkCircleOutline, IoIosClose } from "react-icons/io";
+import {
+  VscArrowLeft,
+  VscArrowRight,
+  VscCheck,
+  VscTrash,
+  VscClose,
+  VscPass,
+} from "react-icons/vsc";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -45,7 +52,7 @@ function App() {
           }}
         />
         <button
-          className="border-2 border-black rounded-2xl p-2 w-1/12 hover:bg-white"
+          className="border-2 border-black p-3 rounded-xl hover:bg-white"
           type="button"
           onClick={() => {
             postEvent(input, setEvents, setError, page, setMaxPage);
@@ -58,10 +65,14 @@ function App() {
           ADD
         </button>
         {error && (
-          <div className="flex gap-16 border-4 border-red-600 rounded-xl p-2 bg-rose-200 text-xl">
-            {error}
-            <button type="button" onClick={() => setError("")}>
-              <IoIosClose size="28px" />
+          <div className="flex gap-16 border-2 border-red-600 rounded-xl p-2 bg-rose-200 text-xl">
+            <div>{error}</div>
+            <button
+              className="rounded-full hover:bg-white"
+              type="button"
+              onClick={() => setError("")}
+            >
+              <VscClose size="28px" />
             </button>
           </div>
         )}
@@ -82,9 +93,7 @@ function App() {
             </div>
             <div className="flex flex-col items-center justify-center text-xl">
               <div>
-                {event.status === "done" ? (
-                  <IoIosCheckmarkCircleOutline size="28px" />
-                ) : null}
+                {event.status === "done" ? <VscPass size="28px" /> : null}
               </div>
             </div>
             <div className="flex-1"></div>
@@ -95,22 +104,23 @@ function App() {
                 flipStatus(event.id, setEvents, setError, page, setMaxPage)
               }
             >
-              DONE
+              <VscCheck size="28px" />
             </button>
             <button
-              className="border-2 border-black rounded-xl p-2 hover:bg-white"
+              className="border-2 border-red-600 rounded-xl p-2 hover:bg-white"
               type="button"
               onClick={() =>
                 deleteEvent(event.id, setEvents, setError, page, setMaxPage)
               }
             >
-              DELETE
+              <VscTrash size="28px" color="red" />
             </button>
           </div>
         ))}
 
-        <div className="flex flex-row gap-10">
+        <div className="flex flex-row gap-3">
           <button
+            className="border-none rounded-xl py-2 px-2 hover:bg-slate-200"
             type="button"
             onClick={() => {
               if (page > 1) {
@@ -118,10 +128,13 @@ function App() {
               }
             }}
           >
-            BACK
+            <VscArrowLeft size="28px" />
           </button>
-          <div>{page}</div>
+          <div className="text-xl border-2 border-black rounded-xl py-2 px-5">
+            {page}
+          </div>
           <button
+            className="border-none rounded-xl py-2 px-2 hover:bg-slate-200"
             type="button"
             onClick={() => {
               if (page < maxPage) {
@@ -129,7 +142,7 @@ function App() {
               }
             }}
           >
-            FOWARD
+            <VscArrowRight size="28px" />
           </button>
         </div>
       </div>
