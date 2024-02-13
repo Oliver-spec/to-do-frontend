@@ -6,8 +6,8 @@ export default function ErrorHandler({ error, setError }) {
   }, []);
 
   return (
-    <div className="flex gap-16 p-3 bg-rose-200 text-xl">
-      <div>{error}</div>
+    <div className="p-3 bg-rose-200 text-xl sticky bottom-0 opacity-85 font-bold">
+      {error}
     </div>
   );
 }

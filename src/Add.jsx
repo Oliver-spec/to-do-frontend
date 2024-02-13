@@ -40,7 +40,7 @@ export default function Add({
       <input
         className="border-2 border-black rounded-2xl p-2 outline-none text-lg w-1/3"
         type="text"
-        placeholder="Name"
+        placeholder="EVENT"
         value={input.name}
         onChange={(event) => {
           const newInput = { ...input, name: event.target.value };

@@ -53,8 +53,8 @@ export default function App() {
   }
 
   return (
-    <main className="flex flex-col">
-      <div className="flex flex-row bg-slate-200">
+    <main className="flex flex-col bg-neutral-100 h-screen">
+      <div className="flex flex-row border-b-2">
         <Add
           setError={setError}
           setEvents={setEvents}
@@ -64,7 +64,7 @@ export default function App() {
         />
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
-      <div className="ml-10">
+      <div className="ml-10 flex-1">
         <div className="p-5 text-2xl font-bold">Events</div>
         <Events
           events={events}
