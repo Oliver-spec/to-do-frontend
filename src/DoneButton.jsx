@@ -7,9 +7,13 @@ export default function DoneButton({
   setMaxPage,
   id,
   page,
+  loading,
+  setLoading,
 }) {
   async function handleFlipStatus() {
     try {
+      setLoading(true);
+
       const res = await axios.patch(`/api/events/${id}?page=${page}`);
       const { events, maxPage } = res.data;
       const formattedEvents = events.map((event) => {
@@ -23,8 +27,11 @@ export default function DoneButton({
 
       setEvents(formattedEvents);
       setMaxPage(maxPage);
+
+      setLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setLoading(false);
     }
   }
 
@@ -33,6 +40,7 @@ export default function DoneButton({
       className="border-2 border-black rounded-xl p-2 hover:bg-white"
       type="button"
       onClick={handleFlipStatus}
+      disabled={loading}
     >
       <VscCheck size="28px" />
     </button>

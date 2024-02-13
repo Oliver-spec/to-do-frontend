@@ -26,14 +26,12 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <button
           className="border-2 border-black rounded-2xl p-2 w-1/2 hover:bg-slate-200"
           type="submit"
         >
           LOGIN
         </button>
-
         {error && (
           <div className="flex gap-16 border-4 border-red-600 rounded-xl p-3 bg-rose-200 text-xl">
             <div>{error}</div>

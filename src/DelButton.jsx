@@ -8,9 +8,13 @@ export default function DelButton({
   id,
   page,
   setPage,
+  setLoading,
+  loading,
 }) {
   async function handleDeleteEvent() {
     try {
+      setLoading(true);
+
       const res = await axios.delete(`/api/events/${id}?page=${page}`);
       const { events, maxPage } = res.data;
       const formattedEvents = events.map((event) => {
@@ -28,8 +32,11 @@ export default function DelButton({
       if (page > maxPage) {
         setPage(maxPage);
       }
+
+      setLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setLoading(false);
     }
   }
 
@@ -38,6 +45,7 @@ export default function DelButton({
       className="border-2 border-red-600 rounded-xl p-2 hover:bg-white"
       type="button"
       onClick={handleDeleteEvent}
+      disabled={loading}
     >
       <VscTrash size="28px" color="red" />
     </button>

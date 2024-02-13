@@ -14,6 +14,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     handleSearch();
@@ -21,6 +22,8 @@ export default function App() {
 
   async function handleSearch() {
     try {
+      setLoading(true);
+
       const res = await axios.get(
         `/api/events?searchFor=${searchTerm}&page=${page}`
       );
@@ -41,8 +44,11 @@ export default function App() {
       if (maxPage < page) {
         setPage(maxPage);
       }
+
+      setLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setLoading(false);
     }
   }
 
@@ -53,6 +59,8 @@ export default function App() {
           setError={setError}
           setEvents={setEvents}
           setMaxPage={setMaxPage}
+          setLoading={setLoading}
+          loading={loading}
         />
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
@@ -65,6 +73,8 @@ export default function App() {
           setMaxPage={setMaxPage}
           page={page}
           setPage={setPage}
+          loading={loading}
+          setLoading={setLoading}
         />
         <Pagination setPage={setPage} page={page} maxPage={maxPage} />
       </div>

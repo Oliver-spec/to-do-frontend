@@ -9,6 +9,8 @@ export default function Events({
   setMaxPage,
   page,
   setPage,
+  loading,
+  setLoading,
 }) {
   return (
     <div>
@@ -35,6 +37,8 @@ export default function Events({
             setMaxPage={setMaxPage}
             id={event.id}
             page={page}
+            loading={loading}
+            setLoading={setLoading}
           />
           <DelButton
             setError={setError}
@@ -43,6 +47,8 @@ export default function Events({
             id={event.id}
             page={page}
             setPage={setPage}
+            loading={loading}
+            setLoading={setLoading}
           />
         </div>
       ))}

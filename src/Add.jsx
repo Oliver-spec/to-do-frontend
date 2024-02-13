@@ -1,7 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function Add({ setError, setEvents, setMaxPage }) {
+export default function Add({
+  setError,
+  setEvents,
+  setMaxPage,
+  setLoading,
+  loading,
+}) {
   const [input, setInput] = useState({
     name: "",
     date: "",
@@ -9,6 +15,8 @@ export default function Add({ setError, setEvents, setMaxPage }) {
 
   async function handlePost() {
     try {
+      setLoading(true);
+
       const formattedEvent = {
         eventName: input.name,
         eventDate: `${input.date}T00:00:00.000Z`,
@@ -19,8 +27,11 @@ export default function Add({ setError, setEvents, setMaxPage }) {
 
       setEvents(newEvents);
       setMaxPage(maxPage);
+
+      setLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setLoading(false);
     }
   }
 
@@ -55,6 +66,7 @@ export default function Add({ setError, setEvents, setMaxPage }) {
             date: "",
           });
         }}
+        disabled={loading}
       >
         ADD
       </button>
