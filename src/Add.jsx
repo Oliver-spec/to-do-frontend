@@ -7,6 +7,7 @@ export default function Add({
   setMaxPage,
   setLoading,
   loading,
+  page,
 }) {
   const [input, setInput] = useState({
     name: "",
@@ -22,10 +23,19 @@ export default function Add({
         eventDate: `${input.date}T00:00:00.000Z`,
       };
 
-      const res = await axios.post("/api/events", formattedEvent);
-      const { newEvents, maxPage } = res.data;
+      const res = await axios.post(`/api/events?page=${page}`, formattedEvent);
+      const { events, maxPage } = res.data;
 
-      setEvents(newEvents);
+      const formattedEvents = events.map((event) => {
+        return {
+          id: event.event_id,
+          name: event.event_name,
+          status: event.status,
+          date: event.event_date,
+        };
+      });
+
+      setEvents(formattedEvents);
       setMaxPage(maxPage);
 
       setLoading(false);

@@ -61,6 +61,7 @@ export default function App() {
           setMaxPage={setMaxPage}
           setLoading={setLoading}
           loading={loading}
+          page={page}
         />
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
