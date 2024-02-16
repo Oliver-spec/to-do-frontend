@@ -46,7 +46,7 @@ export default function Add({
   }
 
   return (
-    <div className="flex flex-row gap-10 p-3 w-5/6">
+    <div className="flex flex-row gap-5 p-3 w-5/6">
       <input
         className="border-2 border-black rounded-2xl p-2 outline-none text-lg w-1/3"
         type="text"

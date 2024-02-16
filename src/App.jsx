@@ -7,6 +7,7 @@ import Add from "./Add";
 import Events from "./Events";
 import Pagination from "./Pagination";
 import ErrorHandler from "./ErrorHandler";
+import FilterButton from "./FilterButton";
 
 export default function App() {
   const [events, setEvents] = useState([]);
@@ -15,17 +16,18 @@ export default function App() {
   const [maxPage, setMaxPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     handleSearch();
-  }, [page, searchTerm]);
+  }, [page, searchTerm, filter]);
 
   async function handleSearch() {
     try {
       setLoading(true);
 
       const res = await axios.get(
-        `/api/events?searchFor=${searchTerm}&page=${page}`
+        `/api/events?searchFor=${searchTerm}&page=${page}&filter=${filter}`
       );
       const { events, maxPage } = res.data;
 
@@ -66,7 +68,12 @@ export default function App() {
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
       <div className="ml-10 flex-1">
-        <div className="p-5 text-2xl font-bold">Events</div>
+        <div className="flex flex-row">
+          <div className="p-5 text-2xl font-bold">Events</div>
+          <div className="flex flex-col items-center justify-center">
+            <FilterButton setFilter={setFilter} loading={loading} />
+          </div>
+        </div>
         <Events
           events={events}
           setError={setError}
