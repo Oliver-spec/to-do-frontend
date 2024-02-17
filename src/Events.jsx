@@ -11,6 +11,8 @@ export default function Events({
   setPage,
   loading,
   setLoading,
+  searchTerm,
+  filter,
 }) {
   return (
     <div>
@@ -41,6 +43,8 @@ export default function Events({
               page={page}
               loading={loading}
               setLoading={setLoading}
+              searchTerm={searchTerm}
+              filter={filter}
             />
             <DelButton
               setError={setError}
@@ -51,6 +55,8 @@ export default function Events({
               setPage={setPage}
               loading={loading}
               setLoading={setLoading}
+              filter={filter}
+              searchTerm={searchTerm}
             />
           </div>
         </div>

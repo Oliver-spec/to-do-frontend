@@ -10,12 +10,16 @@ export default function DelButton({
   setPage,
   setLoading,
   loading,
+  searchTerm,
+  filter,
 }) {
   async function handleDeleteEvent() {
     try {
       setLoading(true);
 
-      const res = await axios.delete(`/api/events/${id}?page=${page}`);
+      const res = await axios.delete(
+        `/api/events/${id}?page=${page}&searchFor=${searchTerm}&filter=${filter}`
+      );
       const { events, maxPage } = res.data;
       const formattedEvents = events.map((event) => {
         return {

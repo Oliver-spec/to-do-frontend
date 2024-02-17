@@ -7,6 +7,8 @@ export default function DoneButton({
   setMaxPage,
   id,
   page,
+  searchTerm,
+  filter,
   loading,
   setLoading,
 }) {
@@ -14,7 +16,9 @@ export default function DoneButton({
     try {
       setLoading(true);
 
-      const res = await axios.patch(`/api/events/${id}?page=${page}`);
+      const res = await axios.patch(
+        `/api/events/${id}?page=${page}&searchFor=${searchTerm}&filter=${filter}`
+      );
       const { events, maxPage } = res.data;
       const formattedEvents = events.map((event) => {
         return {

@@ -64,6 +64,8 @@ export default function App() {
           setLoading={setLoading}
           loading={loading}
           page={page}
+          filter={filter}
+          searchTerm={searchTerm}
         />
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
@@ -83,6 +85,8 @@ export default function App() {
           setPage={setPage}
           loading={loading}
           setLoading={setLoading}
+          searchTerm={searchTerm}
+          filter={filter}
         />
         <Pagination setPage={setPage} page={page} maxPage={maxPage} />
       </div>

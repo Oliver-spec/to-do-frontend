@@ -8,6 +8,8 @@ export default function Add({
   setLoading,
   loading,
   page,
+  searchTerm,
+  filter,
 }) {
   const [input, setInput] = useState({
     name: "",
@@ -23,7 +25,10 @@ export default function Add({
         eventDate: `${input.date}T00:00:00.000Z`,
       };
 
-      const res = await axios.post(`/api/events?page=${page}`, formattedEvent);
+      const res = await axios.post(
+        `/api/events?page=${page}&searchFor=${searchTerm}&filter=${filter}`,
+        formattedEvent
+      );
       const { events, maxPage } = res.data;
 
       const formattedEvents = events.map((event) => {
